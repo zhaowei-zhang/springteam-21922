@@ -1,15 +1,27 @@
 package com.zzz.springteam21922.util;
 
 import com.alibaba.fastjson.JSONObject;
-import com.zzz.springteam21922.domain.WxModel;
-import com.zzz.springteam21922.domain.WxUserModel;
+import com.zzz.springteam21922.dto.Qm;
+import com.zzz.springteam21922.dto.WxModel;
+import com.zzz.springteam21922.dto.WxUserModel;
+import org.apache.http.HttpEntity;
+import org.apache.http.client.config.RequestConfig;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 /**
  * @description:
@@ -29,6 +41,73 @@ public class MyWeCHatUtil {
     public static List<WxModel> wx_token = new ArrayList<WxModel>();
     static SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd H:m:s");
     private static final Logger log = LoggerFactory.getLogger(MyWeCHatUtil.class);
+
+    public static Qm getQm(String url) throws IOException {
+        String result = "";
+        String ticketUrl = "https://qyapi.weixin.qq.com/cgi-bin/get_jsapi_ticket?access_token="+Gettoken();
+        HttpGet httpGet = new HttpGet(ticketUrl);
+        CloseableHttpResponse response = null;
+        CloseableHttpClient httpClient = null;
+        RequestConfig requestConfig = RequestConfig.custom().setConnectTimeout(35000)// 连接主机服务超时时间
+                .setConnectionRequestTimeout(35000)// 请求超时时间
+                .setSocketTimeout(60000)// 数据读取超时时间
+                .build();
+        // 为httpGet实例设置配置
+        httpClient = HttpClients.createDefault();
+        httpGet.setConfig(requestConfig);
+        // 执行get请求得到返回对象
+        response = httpClient.execute(httpGet);
+        HttpEntity entity = response.getEntity();
+        result = EntityUtils.toString(entity);
+        JSONObject resultJson = JSONObject.parseObject(result);
+        String jsapi_ticket=resultJson.getString("ticket");
+        System.out.println("jsapi_ticket:-------:"+jsapi_ticket);
+
+        String str = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        Random random = new Random();
+        StringBuilder sb = new StringBuilder(16);
+        for (int i = 0; i < 16; i++) {
+            char ch = str.charAt(random.nextInt(str.length()));
+            sb.append(ch);
+        }
+        String noncestr=sb.toString();
+        long l = System.currentTimeMillis();
+        String data="jsapi_ticket="+jsapi_ticket+"&noncestr="+noncestr+"&timestamp="+l+"&url="+url;
+        String qm="";
+        try {
+            MessageDigest sha1 = MessageDigest.getInstance("SHA1");
+            byte[] b = data.getBytes();
+            sha1.update(b);
+            byte[] b2 = sha1.digest();
+            int len = b2.length;
+            String s = "0123456789abcdef";
+            //把字符串转为字符串数组
+            char[] ch = s.toCharArray();
+            //创建一个40位长度的字节数组
+            char[] chs = new char[len*2];
+            //循环20次
+            for(int i=0,k=0;i<len;i++) {
+                byte b3 = b2[i];//获取摘要计算后的字节数组中的每个字节
+                // >>>:无符号右移
+                // &:按位与
+                //0xf:0-15的数字
+                chs[k++] = ch[b3 >>> 4 & 0xf];
+                chs[k++] = ch[b3 & 0xf];
+            }
+            qm= new String(chs);
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        System.out.println("签名："+qm);
+        Qm qm1=new Qm();
+        qm1.setData(l);
+        qm1.setJsapi_ticket(jsapi_ticket);
+        qm1.setNoncestr(noncestr);
+        qm1.setUrl(url);
+        qm1.setQm(qm);
+        return qm1;
+    }
+
 
 
 
@@ -151,8 +230,15 @@ public class MyWeCHatUtil {
 
 
     public static void main(String[] args) {
-        log.info("------------------------------------测试信息---------------------------------------");
-        WxUserModel user = getWxUser("VevMz0ad5bcBlheQNRl26xhHIlo0UKXcXgbPew4B16c");
-        System.out.println();
+//        log.info("------------------------------------测试信息---------------------------------------");
+
+//        WxUserModel user = getWxUser("VevMz0ad5bcBlheQNRl26xhHIlo0UKXcXgbPew4B16c");
+//        System.out.println();
+
+        try {
+            getQm("http://mp.weixin.qq.com?params=value");
+        }catch (Exception e){
+
+        }
     }
 }

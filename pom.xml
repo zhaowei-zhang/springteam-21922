@@ -89,6 +89,10 @@
             <version>1.2.58</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.liquibase</groupId>
+            <artifactId>liquibase-core</artifactId>
+        </dependency>
 
         <!--企业微信相关-->
 

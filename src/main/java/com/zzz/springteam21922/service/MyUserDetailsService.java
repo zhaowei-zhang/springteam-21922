@@ -1,6 +1,6 @@
 package com.zzz.springteam21922.service;
 
-import com.zzz.springteam21922.domain.JwtUser;
+import com.zzz.springteam21922.dto.JwtUser;
 import com.zzz.springteam21922.domain.Role;
 import com.zzz.springteam21922.dto.User;
 import com.zzz.springteam21922.mapper.UserMapper;

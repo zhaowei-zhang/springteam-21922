@@ -1,4 +1,4 @@
-package com.zzz.springteam21922.domain;
+package com.zzz.springteam21922.dto;
 
 import lombok.Data;
 

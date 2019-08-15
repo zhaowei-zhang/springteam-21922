@@ -1,5 +1,5 @@
 server:
-  port: 9999
+  port: 9000
 
 #spring:
 #  datasource:
@@ -21,6 +21,10 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
 #com.mysql.cj.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
+  liquibase:
+    change-log: classpath:liquibase/master.xml
+    drop-first: false
+    enabled: true
 #mybatis-plus
 mybatis-plus:
   config-location: classpath:mybatis-config.xml

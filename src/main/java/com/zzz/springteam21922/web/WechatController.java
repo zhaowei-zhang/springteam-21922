@@ -6,6 +6,8 @@ package com.zzz.springteam21922.web;
  * @author: zhaowei.zhang01@hand-china.com
  * @date: 2019/8/15
  */
+import com.zzz.springteam21922.dto.Qm;
+import com.zzz.springteam21922.util.MyWeCHatUtil;
 import me.chanjar.weixin.common.api.WxConsts;
 import me.chanjar.weixin.common.error.WxErrorException;
 import me.chanjar.weixin.mp.api.WxMpService;
@@ -13,19 +15,21 @@ import me.chanjar.weixin.mp.bean.result.WxMpOAuth2AccessToken;
 import me.chanjar.weixin.mp.bean.result.WxMpUser;
 import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.IOException;
 import java.net.URLEncoder;
 
 /**
  * 微信授权
  */
 @RestController
-@RequestMapping("/api/wechat")
+@RequestMapping("/public/wechat")
 public class WechatController {
 
     private Logger logger = Logger.getLogger(getClass());
@@ -33,6 +37,14 @@ public class WechatController {
 
     @Autowired
     private WxMpService wxMpService;
+
+
+    @GetMapping("/getqm")
+    public ResponseEntity<Qm> getQm(String url) throws IOException {
+        Qm qm = MyWeCHatUtil.getQm(url);
+        return ResponseEntity.ok().body(qm);
+    }
+
 
     /**
      * @Description: 微信授权

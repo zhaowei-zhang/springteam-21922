@@ -40,24 +40,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(myUserDetailsService).passwordEncoder(passwordEncoder);
-//        //校验用户
-//        auth.userDetailsService(myUserDetailsService).passwordEncoder(new PasswordEncoder() {
-//            //对密码进行加密
-//            @Override
-//            public String encode(CharSequence charSequence) {
-//                System.out.println("1:encode.charSequence:"+charSequence.toString());
-//                return DigestUtils.md5DigestAsHex(charSequence.toString().getBytes());
-//            }
-//            //对密码进行判断匹配
-//            @Override
-//            public boolean matches(CharSequence charSequence, String s) {
-//                System.out.println("2:matches.charSequence:"+charSequence);
-//                System.out.println("3:s:"+s);
-//                String encode = DigestUtils.md5DigestAsHex(charSequence.toString().getBytes());
-//                boolean res = s.equals( encode );
-//                return res;
-//            }
-//        } );
     }
 
     @Override
@@ -70,7 +52,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and()
                 .formLogin()
                 .permitAll();
-
     }
 
 

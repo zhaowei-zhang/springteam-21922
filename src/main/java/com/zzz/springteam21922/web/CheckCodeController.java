@@ -1,7 +1,6 @@
 package com.zzz.springteam21922.web;
 
-import com.zzz.springteam21922.domain.CheckModel;
-import org.springframework.core.io.InputStreamResource;
+import com.zzz.springteam21922.dto.CheckModel;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

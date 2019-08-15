@@ -1,4 +1,4 @@
-package com.zzz.springteam21922.domain;
+package com.zzz.springteam21922.dto;
 
 import com.zzz.springteam21922.dto.User;
 import org.springframework.security.core.GrantedAuthority;

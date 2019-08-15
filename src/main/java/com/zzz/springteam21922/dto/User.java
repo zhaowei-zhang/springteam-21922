@@ -16,4 +16,5 @@ import java.util.List;
 public class User {
     private UserTable userbody;
     private List<Role> roles;
+    private String checkCode;
 }

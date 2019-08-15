@@ -107,8 +107,8 @@ public class OAuth2ServerConfig extends AuthorizationServerConfigurerAdapter {
     }
 
 
-//    public static void main(String[] args) {
-//        String encode = new BCryptPasswordEncoder().encode("springteam-21922Secret");
-//        System.out.println(encode);
-//    }
+    public static void main(String[] args) {
+        String encode = new BCryptPasswordEncoder().encode("springteam-21922Secret");
+        System.out.println(encode);
+    }
 }

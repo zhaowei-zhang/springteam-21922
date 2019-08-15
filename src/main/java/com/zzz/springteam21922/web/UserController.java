@@ -1,10 +1,11 @@
 package com.zzz.springteam21922.web;
 
+import com.zzz.springteam21922.domain.UserTable;
 import com.zzz.springteam21922.dto.User;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.zzz.springteam21922.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @description:
@@ -14,13 +15,15 @@ import org.springframework.web.bind.annotation.RestController;
  */
 
 @RestController
-@RequestMapping("/api/user")
+@RequestMapping("/public/user")
 public class UserController {
 
-    @PostMapping(value = "/createNewUser")
-    public String createNewUser(@RequestBody User user) {
-        return "登陆成功";
+    @Autowired
+    private UserService userService;
 
+    @PostMapping(value = "/login/{code}")
+    public ResponseEntity<UserTable>  login(@RequestBody User user, @PathVariable(value = "code")String code) {
+        return userService.login(user,code);
     }
 
 
