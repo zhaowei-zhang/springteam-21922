@@ -1,6 +1,6 @@
 package com.zzz.springteam21922.web;
 
-import com.zzz.springteam21922.domain.User;
+import com.zzz.springteam21922.dto.User;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;

@@ -13,6 +13,7 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.ClientDetailsService;
+import org.springframework.security.oauth2.provider.endpoint.TokenEndpoint;
 import org.springframework.security.oauth2.provider.token.AccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 
@@ -107,7 +108,7 @@ public class OAuth2ServerConfig extends AuthorizationServerConfigurerAdapter {
 
 
 //    public static void main(String[] args) {
-//        String encode = new BCryptPasswordEncoder().encode("demoAppSecret");
+//        String encode = new BCryptPasswordEncoder().encode("springteam-21922Secret");
 //        System.out.println(encode);
 //    }
 }

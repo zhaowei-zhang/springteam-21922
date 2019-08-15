@@ -1,5 +1,8 @@
 package com.zzz.springteam21922.web;
 
+import com.zzz.springteam21922.domain.CheckModel;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,7 +22,7 @@ import java.util.Random;
 public class CheckCodeController {
 
     @GetMapping("/getCode/{id}")
-    public String getCode(@PathVariable(value = "id") Long id) {
+    public ResponseEntity<CheckModel> getCode(@PathVariable(value = "id") String id) {
         String str = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
         Random random = new Random();
         StringBuilder sb = new StringBuilder(4);
@@ -27,7 +30,10 @@ public class CheckCodeController {
             char ch = str.charAt(random.nextInt(str.length()));
             sb.append(ch);
         }
-        return sb.toString();
+        CheckModel checkModel=new CheckModel();
+        checkModel.setCheck(sb.toString());
+        return ResponseEntity
+                .ok().body(checkModel);
     }
 
 }
