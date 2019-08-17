@@ -31,10 +31,10 @@ import java.util.Random;
  */
 public class MyWeCHatUtil {
 
-    private static final String agentid="1000002";//agentid:1000015
+    private static final String agentid="1000015";//agentid:1000015   1000002
     private static final String WxUserUrl = "https://qyapi.weixin.qq.com/cgi-bin/user/getuserinfo";//WxUserUrl
-    private static final String corpsecret="j6n319KDSd4xXND6fHOjpvafv3E-qeiYrX359OH3T8c";//corpsecret：ZY7-_CrxrzJg-3UC8gaKC_yz8sWppLTvQZeaZWSq8d4
-    private static final String corpid="ww98e801cc596c14d5";//corpid：ww94243a4a3ae59529
+    private static final String corpsecret="ZY7-_CrxrzJg-3UC8gaKC_yz8sWppLTvQZeaZWSq8d4";//corpsecret：ZY7-_CrxrzJg-3UC8gaKC_yz8sWppLTvQZeaZWSq8d4  j6n319KDSd4xXND6fHOjpvafv3E-qeiYrX359OH3T8c
+    private static final String corpid="ww94243a4a3ae59529";//corpid：ww94243a4a3ae59529  ww98e801cc596c14d5
     private static final String WxTokenUrl = "https://qyapi.weixin.qq.com/cgi-bin/gettoken";//WxTokenUrl
 
 
@@ -71,7 +71,7 @@ public class MyWeCHatUtil {
             sb.append(ch);
         }
         String noncestr=sb.toString();
-        long l = System.currentTimeMillis();
+        long l = System.currentTimeMillis()/1000;
         String data="jsapi_ticket="+jsapi_ticket+"&noncestr="+noncestr+"&timestamp="+l+"&url="+url;
         String qm="";
         try {
@@ -79,10 +79,12 @@ public class MyWeCHatUtil {
             byte[] b = data.getBytes();
             sha1.update(b);
             byte[] b2 = sha1.digest();
+            System.err.println("aaaaaaaaaaa--------------"+new String(b2));
             int len = b2.length;
             String s = "0123456789abcdef";
             //把字符串转为字符串数组
             char[] ch = s.toCharArray();
+            System.err.println(ch);
             //创建一个40位长度的字节数组
             char[] chs = new char[len*2];
             //循环20次

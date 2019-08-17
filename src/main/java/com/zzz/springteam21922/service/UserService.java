@@ -55,10 +55,16 @@ public class UserService extends ServiceImpl<UserMapper, UserTable> {
                     .ok().body(selectWxUser);
         }
         else{
-            userTable.setPassword(passwordEncoder.encode(userTable.getPassword()));
-            baseMapper.insert(userTable);
-            return ResponseEntity
-                    .ok().body(userTable);
+            User userByUserName = getUserByUserName(userTable.getUsername());
+            if(userByUserName==null){
+                userTable.setPassword(passwordEncoder.encode(userTable.getPassword()));
+                baseMapper.insert(userTable);
+                return ResponseEntity
+                        .ok().body(userTable);
+            }
+            else{
+                return ResponseEntity.ok().body(new UserTable());
+            }
         }
     }
 }

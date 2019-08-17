@@ -11,6 +11,8 @@ wechat:
 
 #mysql
 spring:
+  application:
+    name: springteam-21922
   redis:
     host: 127.0.0.1
     pool: 6379
@@ -49,3 +51,11 @@ mybatis-plus:
   configuration:
     map-underscore-to-camel-case: true
     cache-enabled: false
+
+#eureka:
+#  client:
+#    service-url:
+#      defaultZone: http://localhost:9100/eureka/
+#    instance:
+#      prefer-ip-address: true
+
